@@ -9,8 +9,8 @@ import (
 	"math/big"
 	"time"
 
-	"gopkg.in/square/go-jose.v2"
-	"gopkg.in/square/go-jose.v2/jwt"
+	"github.com/go-jose/go-jose/v4"
+	"github.com/go-jose/go-jose/v4/jwt"
 )
 
 // Authenticator builds a JWT based on the APIKey.
@@ -61,7 +61,7 @@ func (a *Authenticator) BuildJWT(service, uri string) (string, error) {
 		},
 		URI: uri,
 	}
-	jwtString, err := jwt.Signed(sig).Claims(cl).CompactSerialize()
+	jwtString, err := jwt.Signed(sig).Claims(cl).Serialize()
 	if err != nil {
 		return "", fmt.Errorf("jwt: %w", err)
 	}
